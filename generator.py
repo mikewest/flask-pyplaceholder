@@ -44,4 +44,4 @@ def placeholder( width=400, height=300, foreground="333333", background="CCCCCC"
     return send_file( filename_or_fp=out, mimetype='image/png', cache_timeout=31556926 )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
