@@ -24,9 +24,11 @@ def index():
 @app.route( "/placeholder.png" )
 @app.route( "/<int:width>x<int:height>/placeholder.png" )
 @app.route( "/<int:width>x<int:height>/<foreground>/<background>/placeholder.png" )
-@app.route( "/<int:width>x<int:height>/<foreground>/<background>/<border>/placeholder.png" )
-def placeholder( width=400, height=300, foreground="333333", background="CCCCCC", border=False ):
+@app.route( "/<int:width>x<int:height>/<foreground>/<background>/<metadata>/placeholder.png" )
+@app.route( "/<int:width>x<int:height>/<foreground>/<background>/<metadata>/<border>/placeholder.png" )
+def placeholder( width=400, height=300, foreground="333333", background="CCCCCC", border=False, metadata=True ):
     border = False if not border or border == "noborder" else True
+    metadata = False if not metadata or metadata == "nometadata" else True
     out = "./output/%dx%d/%s/%s/%s.png" % ( width, height, foreground, background, 'border' if border else 'noborder' )
 
     if height > 1000 or width > 1000:
@@ -38,7 +40,7 @@ def placeholder( width=400, height=300, foreground="333333", background="CCCCCC"
 
     if not os.path.exists( out ):
         mkdir_p( os.path.dirname( out ) )
-        p = Placeholder( width=width, height=height, foreground=foreground, background=background, border=border, out=out )
+        p = Placeholder( width=width, height=height, foreground=foreground, background=background, border=border, out=out, metadata=metadata )
         p.write()
 
     return send_file( filename_or_fp=out, mimetype='image/png', cache_timeout=31556926 )
