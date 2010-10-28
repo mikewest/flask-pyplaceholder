@@ -29,7 +29,7 @@ def index():
 def placeholder( width=400, height=300, foreground="333333", background="CCCCCC", border=False, metadata=True ):
     border = False if not border or border == "noborder" else True
     metadata = False if not metadata or metadata == "nometadata" else True
-    out = "./output/%dx%d/%s/%s/%s.png" % ( width, height, foreground, background, 'border' if border else 'noborder' )
+    out = "./output/%dx%d/%s/%s/%s/%s.png" % ( width, height, foreground, background, 'border' if border else 'noborder', 'metadata' if metadata else 'nometadata' )
 
     if height > 1000 or width > 1000:
         abort( 501,  "Max size is 1000x1000.  Take pity on my poor server, please." )
